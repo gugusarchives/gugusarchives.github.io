@@ -5,13 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>gugu256's Archives</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        const username = 'gugusarchives'; // Replace with your GitHub username
+        const repo = 'gugusarchives.github.io'; // Replace with your repository name
+        const path = 'pdf_files'; // Path to the directory within the repo, leave blank for root directory
+        const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${path}`;
+
+        // Fetch the files in the repository
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const fileListDiv = document.getElementById('file-list');
+                data.forEach(file => {
+                    // Only list files, exclude directories
+                    if (file.type === 'file') {
+                        const fileElement = document.createElement('p');
+                        fileElement.textContent = '<a href="' + file.path + '">' + file.path + '</a>;
+                        fileListDiv.appendChild(fileElement); 
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching file list:', error);
+            });
+    </script>
 </head>
 <body>
     <h1>gugu256's Archives</h1>
-    <p><a href="pdf_files/Autorisation de découverte - Silex and the City 4.pdf">Autorisation de découverte - Silex and the City 4</a></p>
-    <p><a href="pdf_files/Jónsdóttir Sólborg, Halldórsdóttir Þorbjörg - Íslenska fyrir alla 1 (2011).pdf">Íslenska fyrir alla 1</a></p>
-    <p><a href="pdf_files/Norwegian in three months -- Blom, Øivind -- 1989 -- Woodbridge, Suffolk_ Hugo's Language Books -- 9780852851463 -- 2d7f0f044b77b1253622922cb8acd7a9 -- Anna’s Archive.pdf">Norwegian in 3 months</a></p>
-    <p><a href="pdf_files/G. V. C Young, C. R. Clewer, Alex Bell (illustrator) - The Faroese Saga  -Century Services, Ltd. (1973).pdf">The Faroese Saga</a></p>
-    
+    <div id="file-list">
+        
+    </div>
 </body>
 </html>
