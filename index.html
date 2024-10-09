@@ -25,7 +25,7 @@
                     // Only list files, exclude directories
                     if (file.type === 'file') {
                         const fileElement = document.createElement('p');
-                        fileElement.textContent = '<a href="' + file.path + '">' + file.path + '</a>;
+                        fileElement.innerHTML = '<a href="' + file.path + '">' + file.name + '</a>';
                         fileListDiv.appendChild(fileElement); 
                     }
                 });
