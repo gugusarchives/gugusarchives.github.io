@@ -8,6 +8,11 @@ body {
     color: white;
 }
 
+# add {
+    font-weight: 200%;
+    border: dashed 3px white;
+}
+
 h1 {
     font-family: "Libre Barcode 39 Extended Text", system-ui;
     font-weight: 550;
